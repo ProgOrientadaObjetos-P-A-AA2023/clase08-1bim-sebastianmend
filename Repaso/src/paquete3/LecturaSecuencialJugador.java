@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import java.util.ArrayList;
+
 import paquete1.Jugador;
 
 public class LecturaSecuencialJugador {
@@ -19,6 +20,9 @@ public class LecturaSecuencialJugador {
     private ObjectInputStream entrada;
     private ArrayList<Jugador> jugadores;
     private String nombreArchivo;
+    private boolean verificar;
+    private Jugador establecerjugadorbuscado;
+    
 
     public LecturaSecuencialJugador(String n) {
         nombreArchivo = n;
@@ -66,6 +70,9 @@ public class LecturaSecuencialJugador {
         }
     }
 
+    
+    
+    
     public ArrayList<Jugador> obtenerJugadores() {
         return jugadores;
     }
@@ -73,6 +80,69 @@ public class LecturaSecuencialJugador {
     public String obtenerNombreArchivo() {
         return nombreArchivo;
     }
+    
+    /*public void establecerJugadorBuscado(String cadena) {
+        // 
+        
+        File f = new File(obtenerNombreArchivo());
+        if (f.exists()) {
+
+            while (true) {
+                try {
+                    Jugador registro = (Jugador) entrada.readObject();
+                    if (registro.obtenerJugadores().equals(cadena)) {
+                        registroBuscado = registro;
+                    }
+                } catch (EOFException endOfFileException) {
+                    return; // se llegó al fin del archivo
+                    // se puede usar el break;
+                    // System.err.println("Fin de archivo: " + endOfFileException);
+
+                } catch (IOException ex) {
+                    System.err.println("Error al leer el archivo: " + ex);
+                } catch (ClassNotFoundException ex) {
+                    System.err.println("No se pudo crear el objeto: " + ex);
+                } catch (Exception ex) {
+                    System.err.println("No hay datos en el archivo: " + ex);
+
+                }
+            }
+        }
+    }
+*/
+    public void establecerVerificado(String nombre){
+        
+       // proceso para saber si existe el club
+        String nombreArchivoClub = "data/jugadores.dat";
+        LecturaSecuencialJugador lectura
+                = new LecturaSecuencialJugador(nombreArchivoClub);
+        lectura.establecerRegistroBuscado(siglasEquipo);
+        Club c = lectura.obtenerRegistroBuscado();
+        
+        // print para presentar si existe el club. Informativo
+        if (c==null) {
+            System.out.println("Debe seleccionar de forma correcta el club");
+        }
+        
+        if (c != null) {
+            EscrituraSecuencialJugador archivo
+                    = new EscrituraSecuencialJugador(nombreArchivo);
+            Jugador j = new Jugador(nombre, dorsal, c);
+            // establecer el valor del atributo registro
+            archivo.establecerRegistro(j);
+            // establecer en el archivo el atributo del registro
+            archivo.establecerSalida();
+            archivo.cerrarArchivo();
+            bandera = true;
+        }
+        return bandera;
+    }
+        
+        
+     return verificar;
+     
+    }
+  
 
     @Override
     public String toString() {
@@ -105,4 +175,11 @@ public class LecturaSecuencialJugador {
             System.exit(1);
         } // fin de catch
     } // fin del método cerrarArchivo
+    
+    
+    
+    
+    
+    
+    
 }

@@ -16,18 +16,25 @@ import paquete3.LecturaSecuencialJugador;
  *
  * @author reroes
  */
+
+
+
+
+
+
 public class Principal {
 
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
         boolean bandera = true;
         while (bandera) {
-            System.out.printf("%s\n%s\n%s\n%s\n%s\n",
+            System.out.printf("%s\n%s\n%s\n%s\n%s\n%s\n",
                     "Opciones",
                     "1) Ingrese Club",
                     "2) Listar Club",
                     "3) Ingrese Jugador",
-                    "4) Listar Jugador");
+                    "4) Listar Jugador",
+                    "5) Verificar jugador");
             int opcion = entrada.nextInt();
             if (opcion == 1) {
                 agregarClubs();
@@ -46,9 +53,16 @@ public class Principal {
                     } else {
                         if (opcion == 4) {
                             verJugadores();
+                        }
+                            
+                          if (opcion == 5) {
+                            verificarJugador();
                         }else{
                             System.out.println("Opción incorrecta");
-                        }
+                                
+                                
+                                
+                                }
                     }
 
                 }
@@ -64,6 +78,46 @@ public class Principal {
         }
     }
 
+    public static boolean verificarJugador(){
+        boolean bandera=false;
+        Scanner entrada=new Scanner (System.in);
+        String nom;
+        System.out.println("Ingrese el nombre del jugador que desea buscar: ");
+        nom=entrada.next();
+        
+        
+        
+        
+        // proceso para saber si existe el club
+        String nombreArchivoClub = "data/clubs.dat";
+        LecturaSecuencialClub lectura
+                = new LecturaSecuencialClub(nombreArchivoClub);
+        lectura.establecerRegistroBuscado(siglasEquipo);
+        Club c = lectura.obtenerRegistroBuscado();
+        
+        // print para presentar si existe el club. Informativo
+        if (c==null) {
+            System.out.println("Debe seleccionar de forma correcta el club");
+        }
+        
+        if (c != null) {
+            EscrituraSecuencialJugador archivo
+                    = new EscrituraSecuencialJugador(nombreArchivo);
+            Jugador j = new Jugador(nombre, dorsal, c);
+            // establecer el valor del atributo registro
+            archivo.establecerRegistro(j);
+            // establecer en el archivo el atributo del registro
+            archivo.establecerSalida();
+            archivo.cerrarArchivo();
+            bandera = true;
+        }
+        return bandera;
+    }
+        
+        
+    
+    
+    
     public static void agregarClubs() {
         String nombreArchivo = "data/clubs.dat";
         Scanner entrada = new Scanner(System.in);
