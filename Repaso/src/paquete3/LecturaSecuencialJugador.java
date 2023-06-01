@@ -20,7 +20,7 @@ public class LecturaSecuencialJugador {
     private ObjectInputStream entrada;
     private ArrayList<Jugador> jugadores;
     private String nombreArchivo;
-    private boolean verificar;
+    
     private Jugador establecerjugadorbuscado;
     
 
@@ -69,6 +69,8 @@ public class LecturaSecuencialJugador {
             }
         }
     }
+    
+    
 
     
     
@@ -81,7 +83,12 @@ public class LecturaSecuencialJugador {
         return nombreArchivo;
     }
     
-    /*public void establecerJugadorBuscado(String cadena) {
+    
+    
+    
+   
+    
+    public void establecerJugadorBuscado(String cadena) {
         // 
         
         File f = new File(obtenerNombreArchivo());
@@ -90,8 +97,8 @@ public class LecturaSecuencialJugador {
             while (true) {
                 try {
                     Jugador registro = (Jugador) entrada.readObject();
-                    if (registro.obtenerJugadores().equals(cadena)) {
-                        registroBuscado = registro;
+                    if (registro.obtenerNombre().equals(cadena)) {
+                        establecerjugadorbuscado = registro;
                     }
                 } catch (EOFException endOfFileException) {
                     return; // se llegó al fin del archivo
@@ -109,39 +116,15 @@ public class LecturaSecuencialJugador {
             }
         }
     }
-*/
-    public void establecerVerificado(String nombre){
+    
+     public Jugador obtenerJugadorBuscado() {
         
-       // proceso para saber si existe el club
-        String nombreArchivoClub = "data/jugadores.dat";
-        LecturaSecuencialJugador lectura
-                = new LecturaSecuencialJugador(nombreArchivoClub);
-        lectura.establecerRegistroBuscado(siglasEquipo);
-        Club c = lectura.obtenerRegistroBuscado();
+        return establecerjugadorbuscado;
+    }  
         
-        // print para presentar si existe el club. Informativo
-        if (c==null) {
-            System.out.println("Debe seleccionar de forma correcta el club");
-        }
-        
-        if (c != null) {
-            EscrituraSecuencialJugador archivo
-                    = new EscrituraSecuencialJugador(nombreArchivo);
-            Jugador j = new Jugador(nombre, dorsal, c);
-            // establecer el valor del atributo registro
-            archivo.establecerRegistro(j);
-            // establecer en el archivo el atributo del registro
-            archivo.establecerSalida();
-            archivo.cerrarArchivo();
-            bandera = true;
-        }
-        return bandera;
-    }
-        
-        
-     return verificar;
-     
-    }
+    
+
+   
   
 
     @Override

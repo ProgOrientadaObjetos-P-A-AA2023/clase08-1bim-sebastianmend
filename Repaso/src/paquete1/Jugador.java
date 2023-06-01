@@ -14,13 +14,7 @@ public class Jugador implements Serializable{
     private String nombre;
     private int dorsal;
     private Club club;
-    private String verificado;
-    
-    
-   public void establecerVerificado(String n){
-        nombre = n;
-    }
-    
+
     public Jugador(String nom, int d, Club c){
         nombre = nom;
         dorsal = d;
@@ -50,8 +44,6 @@ public class Jugador implements Serializable{
     public Club obtenerClub(){
         return club;
     }
-    public Club obtenerVerificado(){
-        return verificado;
-    }
+   
     
 }

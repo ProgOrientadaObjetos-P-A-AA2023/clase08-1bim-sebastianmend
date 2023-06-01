@@ -16,12 +16,6 @@ import paquete3.LecturaSecuencialJugador;
  *
  * @author reroes
  */
-
-
-
-
-
-
 public class Principal {
 
     public static void main(String[] args) {
@@ -54,15 +48,19 @@ public class Principal {
                         if (opcion == 4) {
                             verJugadores();
                         }
-                            
-                          if (opcion == 5) {
-                            verificarJugador();
-                        }else{
+                        if (opcion == 5) {
+
+                            if (verificarJugador()) {
+
+                                System.out.println("Si existe el jugador ");
+                            } else {
+                                System.out.println("El jugador no existe ");
+                            }
+
+                        } else {
                             System.out.println("Opción incorrecta");
-                                
-                                
-                                
-                                }
+
+                        }
                     }
 
                 }
@@ -78,46 +76,6 @@ public class Principal {
         }
     }
 
-    public static boolean verificarJugador(){
-        boolean bandera=false;
-        Scanner entrada=new Scanner (System.in);
-        String nom;
-        System.out.println("Ingrese el nombre del jugador que desea buscar: ");
-        nom=entrada.next();
-        
-        
-        
-        
-        // proceso para saber si existe el club
-        String nombreArchivoClub = "data/clubs.dat";
-        LecturaSecuencialClub lectura
-                = new LecturaSecuencialClub(nombreArchivoClub);
-        lectura.establecerRegistroBuscado(siglasEquipo);
-        Club c = lectura.obtenerRegistroBuscado();
-        
-        // print para presentar si existe el club. Informativo
-        if (c==null) {
-            System.out.println("Debe seleccionar de forma correcta el club");
-        }
-        
-        if (c != null) {
-            EscrituraSecuencialJugador archivo
-                    = new EscrituraSecuencialJugador(nombreArchivo);
-            Jugador j = new Jugador(nombre, dorsal, c);
-            // establecer el valor del atributo registro
-            archivo.establecerRegistro(j);
-            // establecer en el archivo el atributo del registro
-            archivo.establecerSalida();
-            archivo.cerrarArchivo();
-            bandera = true;
-        }
-        return bandera;
-    }
-        
-        
-    
-    
-    
     public static void agregarClubs() {
         String nombreArchivo = "data/clubs.dat";
         Scanner entrada = new Scanner(System.in);
@@ -166,12 +124,12 @@ public class Principal {
                 = new LecturaSecuencialClub(nombreArchivoClub);
         lectura.establecerRegistroBuscado(siglasEquipo);
         Club c = lectura.obtenerRegistroBuscado();
-        
+
         // print para presentar si existe el club. Informativo
-        if (c==null) {
+        if (c == null) {
             System.out.println("Debe seleccionar de forma correcta el club");
         }
-        
+
         if (c != null) {
             EscrituraSecuencialJugador archivo
                     = new EscrituraSecuencialJugador(nombreArchivo);
@@ -185,7 +143,25 @@ public class Principal {
         }
         return bandera;
     }
-    
+       public static boolean verificarJugador() {
+        boolean bandera = false;
+        Scanner sc = new Scanner(System.in);
+           System.out.println("Ingrese el nombre del jugador que desea buscar ");
+           String j = sc.next();
+        // proceso para saber si existe el jugador
+        String nombreArchivoJugador = "data/jugadores.dat";
+        LecturaSecuencialJugador lectura
+                = new LecturaSecuencialJugador(nombreArchivoJugador);
+        
+        lectura.establecerJugadorBuscado(j);
+        Jugador c = lectura.obtenerJugadorBuscado();
+       if (c!=null) {
+            bandera=true;
+        }
+        return bandera;
+    }
+
+
     public static void verJugadores() {
         String nombreArchivo = "data/jugadores.dat";
         LecturaSecuencialJugador lectura
@@ -195,4 +171,4 @@ public class Principal {
         lectura.cerrarArchivo();
     }
 
-}
+ }
